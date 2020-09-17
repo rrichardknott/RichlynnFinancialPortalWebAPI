@@ -1,0 +1,105 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Bilbo+Swash+Caps&display=swap');
+
+
+body{
+    justify-content:space-around!important;
+    height: 100vh;
+    background-color: skyblue;
+}
+#resources_container {
+    width: 120% !important;
+    padding: 0 5% 0 0!important;
+    position: relative;
+    justify-content: left !important;
+}
+
+#swagger-ui-container{
+    width: 75vw!important;
+    justify-content: center!important;
+    
+}
+
+.swagger-section #header{
+    background-color: #1e1e1e;
+    height: 75px;
+    
+}
+
+.logo__title{
+    color: skyblue;
+    font-family: 'Bilbo Swash Caps', cursive;
+    letter-spacing: 5px;
+    font-size: 110%;
+    margin-right: 60px;
+    margin-top: 20px;
+}
+
+.info_title {       
+    color: darkorchid;
+    font-size: 2.0em!important;
+    
+}
+
+.logo__img {
+    display: none !important;
+}
+
+.swagger-section #input_baseUrl {
+    position: relative;
+    width: 400px;
+    top: -30px;
+    left: 20px;
+    border-radius: 25px;
+    height: 30px;
+}
+
+.swagger-section #input_apiKey {
+    width: 200px;
+    position: relative;
+    top: -30px;
+    left: 20px;
+    border-radius: 25px;
+    height: 30px;
+}
+
+.swagger-section #api_selector input{
+    font-size: 1rem!important;
+}
+
+
+#swagger-ui-container{
+    font-family: 'Garamond', cursive;
+    letter-spacing:5px;
+    color: black!important;
+
+}
+
+#swagger-ui-container a{
+    color: darkblue!important;
+    font-family: 'Garamond', cursive!important;
+    font-size: 110%!important;
+    text-decoration: none!important;
+}
+
+.swagger-section .swagger-ui-wrap ul#resources li.resource div.heading h2 a {
+    color: darkblue!important;
+}
+
+
+
+#explore {
+    position: relative;
+    top: -30px;
+    left: 20px;
+    background-color: skyblue !important;
+    color: black !important;
+    width: 100px !important;
+    font-size: 1rem !important;
+    padding: 3% !important;
+    text-align: center !important;
+    border-radius: 25px!important;
+}
+
+.swagger-section .swagger-ui-wrap a img {
+    display: none;
+}
