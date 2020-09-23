@@ -44,8 +44,7 @@ namespace RichlynnFinancialPortalWebAPI.Models
             bool IsDeleted,
             AccountType AccountType
             )
-        {
-
+        {      
 
             return await Database.ExecuteSqlCommandAsync("CreateBankAccount @HouseholdId, @OwnerId, @AccountName, @Created, @StartingBalance, @CurrentBalance, @WarningBalance, @IsDeleted, @AccountType",
                 new SqlParameter("HouseholdId", HouseholdId),

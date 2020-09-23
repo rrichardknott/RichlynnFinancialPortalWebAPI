@@ -23,10 +23,11 @@ namespace RichlynnFinancialPortalWebAPI.Controllers
         /// <summary>
         /// Create a Bank Account
         /// </summary>
-        /// <returns></returns>
+        /// <param ownerId="be2b5c28-983d-4522-a284-dada7db71b3d"></param>        
         /// 
 
         [Route("CreateBankAccount"), HttpPost]
+       
         public async Task<int> CreateBankAccount
             (
                 int householdId,
@@ -54,10 +55,6 @@ namespace RichlynnFinancialPortalWebAPI.Controllers
 
                 );
         }
-
-
-
-
 
         /// <summary>
         /// Get a list of all Bank Accounts
@@ -99,8 +96,24 @@ namespace RichlynnFinancialPortalWebAPI.Controllers
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        [Route("GetBankAndTransactionDataById")]
-        public async Task<IHttpActionResult> GetBankAndTransactionDataById(int Id)
+        /// 
+
+
+        [Route("GetBankAndTransactionDataById"), HttpGet]
+        public async Task<BankAccount> GetBankAndTransactionDataById(int Id)
+        {
+            return await db.GetAllBankDataById(Id);
+        }
+
+
+        /// <summary>
+        /// Return data in json
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        /// 
+        [Route("GetBankAndTransactionDataById/json")]
+        public async Task<IHttpActionResult> GetBankAndTransactionDataByIdJson(int Id)
         {
             var json = JsonConvert.SerializeObject(await db.GetBankAndTransactionDataById(Id));
             return Ok(json);
@@ -108,9 +121,7 @@ namespace RichlynnFinancialPortalWebAPI.Controllers
 
         /// <summary>
         /// Update account information
-        /// </summary>
-        /// <param name="Id"></param>
-        /// <returns></returns>
+        /// </summary>        
         /// 
         [Route("UpdateBankAccountDataById"), HttpPost]
         public async Task<int> UpdateBankAccountDataById 
