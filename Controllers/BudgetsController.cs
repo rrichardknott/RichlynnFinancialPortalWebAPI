@@ -20,15 +20,47 @@ namespace RichlynnFinancialPortalWebAPI.Controllers
 
 
         /// <summary>
+        /// Create a Budget
+        /// </summary>
+        /// <param name="householdId"></param>
+        /// <param name="ownerId"></param>
+        /// <param name="created"></param>
+        /// <param name="budgetName"></param>
+        /// <param name="currentAmount"></param>
+        /// <returns></returns>
+        [Route("CreateBudget"), HttpPost]
+        public async Task<int> CreateBudget
+            (
+                int householdId,
+                string ownerId,               
+                DateTime created,
+                string budgetName,
+                decimal currentAmount
+            )
+        {
+            return await db.CreateBudget
+                (
+                    householdId,
+                    ownerId,                   
+                    created = DateTime.Now,
+                    budgetName,
+                    currentAmount
+
+                );
+        }
+
+
+
+
+        /// <summary>
         /// Get a list of all budgets
         /// </summary>
         /// <returns></returns>
 
-        [Route("GetAllBudgets")]
-        public async Task<IHttpActionResult> GetAllBudgets()
+        [Route("GetAllBudgets"), HttpGet]
+        public async Task<List<Budget>> GetAllBudgets()
         {
-            var json = JsonConvert.SerializeObject(await db.GetAllBudgets());
-            return Ok(json);
+            return await db.GetAllBudgets();
         }
 
 
@@ -64,13 +96,21 @@ namespace RichlynnFinancialPortalWebAPI.Controllers
         /// <summary>
         /// Update Budget Item
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="id"></param>
+        /// <param name="budgetName"></param>
         /// <returns></returns>
-        [Route("UpdateBudgetDataById")]
-        public async Task<IHttpActionResult> UpdateBudgetDataById(int Id)
+        [Route("UpdateBudgetDataById"), HttpPut]
+        public async Task<int> UpdateBudgetDataById
+            (
+                int id,
+                string budgetName
+            )
         {
-            var json = JsonConvert.SerializeObject(await db.UpdateBudgetDataById(Id));
-            return Ok(json);
+            return await db.UpdateBudgetDataById
+                (
+                    id,
+                    budgetName
+                );
         }
 
 

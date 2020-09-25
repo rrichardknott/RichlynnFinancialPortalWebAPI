@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using RichlynnFinancialPortalWebAPI.Models;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -15,12 +17,58 @@ namespace RichlynnFinancialPortalWebAPI.Controllers
         private ApiDbContext db = new ApiDbContext();
 
         /// <summary>
-        /// Get a list of all Budget Items
+        /// Create a Budget Item
+        /// </summary>
+        /// <param name="budgetId"></param>
+        /// <param name="created"></param>
+        /// <param name="itemName"></param>
+        /// <param name="targetAmount"></param>
+        /// <param name="currentAmount"></param>
+        /// <param name="isDeleted"></param>
+        /// <returns></returns>
+        [Route("CreateBudgetItem"), HttpPost]        
+        public async Task<int> CreateBudgetItem
+        (
+            int budgetId,               
+            DateTime created,
+            string itemName,
+            decimal targetAmount,
+            decimal currentAmount,
+            bool isDeleted
+        )
+        {
+            return await db.CreateBudgetItem
+                (
+                    budgetId,
+                    created = DateTime.Now,
+                    itemName,
+                    targetAmount,
+                    currentAmount,
+                    isDeleted
+                );
+        }
+
+        /// <summary>
+        /// List of Budget Items
         /// </summary>
         /// <returns></returns>
+        /// 
 
-        [Route("GetAllBudgetItemData")]
-        public async Task<IHttpActionResult> GetAllBudgetItemData()
+        [Route("GetAllBudgetItemData"), HttpGet]
+        public async Task<List<BudgetItem>> GetAllBudgetItemData()
+        {
+            return await db.GetAllBudgetItemData();
+            //var json = JsonConvert.SerializeObject(await db.GetAllBankAccounts());
+            //return Ok(json);
+        }
+
+        /// <summary>
+        /// List of Budget Items in json
+        /// </summary>
+        /// <returns></returns>
+        /// 
+        [Route("GetAllBudgetItemData/json")]
+        public async Task<IHttpActionResult> GetAllBudgetItemDatajson()
         {
             var json = JsonConvert.SerializeObject(await db.GetAllBudgetItemData());
             return Ok(json);
@@ -44,7 +92,7 @@ namespace RichlynnFinancialPortalWebAPI.Controllers
         /// <param name="Id"></param>
         /// <returns></returns>
 
-        [Route("UpdateBudgetItemDataById")]
+        [Route("UpdateBudgetItemDataById"), HttpPut]
         public async Task<IHttpActionResult> UpdateBudgetItemDataById(int Id)
         {
             var json = JsonConvert.SerializeObject(await db.UpdateBudgetItemDataById(Id));

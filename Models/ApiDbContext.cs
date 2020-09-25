@@ -147,6 +147,42 @@ namespace RichlynnFinancialPortalWebAPI.Models
         #region
         //Budget begins==============================================================
         /// <summary>
+        /// Create a Budget
+        /// </summary>
+        /// <param name="HouseholdId"></param>
+        /// <param name="OwnerId"></param>
+        /// <param name="Created"></param>
+        /// <param name="BudgetName"></param>
+        /// <param name="CurrentAmount"></param>
+        /// <returns></returns>
+        public async Task<int> CreateBudget
+            (int HouseholdId,
+            string OwnerId,            
+            DateTime Created,
+            string BudgetName,
+            decimal CurrentAmount
+            )
+        {
+
+            return await Database.ExecuteSqlCommandAsync("CreateBudget @HouseholdId, @OwnerId, @Created, @BudgetName, @CurrentAmount",
+                new SqlParameter("HouseholdId", HouseholdId),
+                new SqlParameter("OwnerId", OwnerId),
+                new SqlParameter("Created", Created),
+                new SqlParameter("BudgetName", BudgetName),
+                new SqlParameter("CurrentAmount", CurrentAmount)
+                );
+
+
+        }
+
+
+
+
+
+
+
+
+        /// <summary>
         /// ApiDbContext - Get all budgets
         /// </summary>
         /// <returns></returns>
@@ -185,10 +221,19 @@ namespace RichlynnFinancialPortalWebAPI.Models
         /// ApiDbContext - Update budget data
         /// </summary>
         /// <param name="Id"></param>
+        /// <param name="BudgetName"></param>
         /// <returns></returns>
-        public async Task<Budget> UpdateBudgetDataById(int Id)
+        public async Task<int> UpdateBudgetDataById
+            (
+                int Id,
+                string BudgetName
+            
+            )
         {
-            return await Database.SqlQuery<Budget>("UpdateBudgetDataById @Id", new SqlParameter("Id", Id)).FirstOrDefaultAsync();
+            return await Database.ExecuteSqlCommandAsync("UpdateBudgetDataById @Id, @BudgetName",
+                new SqlParameter("Id", Id),
+                new SqlParameter("BudgetName", BudgetName)
+                );
         }
 
 
@@ -211,6 +256,33 @@ namespace RichlynnFinancialPortalWebAPI.Models
 
         #region
         //Budget Item begins=================================================================
+        /// <summary>
+        /// Create a budget item
+        /// </summary>       
+        /// 
+        public async Task<int> CreateBudgetItem
+        (
+        int BudgetId,           
+        DateTime Created,
+        string ItemName,
+        decimal TargetAmount,
+        decimal CurrentAmount,
+        bool IsDeleted           
+        )
+        {
+
+            return await Database.ExecuteSqlCommandAsync("CreateBudgetItem @BudgetId, @Created, @ItemName, @TargetAmount, @CurrentAmount, @IsDeleted",
+                new SqlParameter("BudgetId", BudgetId),
+                new SqlParameter("Created", Created),
+                new SqlParameter("ItemName", ItemName),
+                new SqlParameter("TargetAmount", TargetAmount),
+                new SqlParameter("CurrentAmount", CurrentAmount),
+                new SqlParameter("IsDeleted", IsDeleted)
+                );
+        }
+
+
+
 
 
         /// <summary>
@@ -330,11 +402,22 @@ namespace RichlynnFinancialPortalWebAPI.Models
         /// ApiDbContext - Household Update
         /// </summary>
         /// <param name="Id"></param>
+        /// <param name="Greeting"></param>
+        /// <param name="HouseholdName"></param>
         /// <returns></returns>
-        public async Task<Household> UpdateHouseholdDataById(int Id)
+        public async Task<int> UpdateHouseholdDataById
+            (
+                int Id,
+                string HouseholdName,
+                string Greeting
+            )
         {
-                return await Database.SqlQuery<Household>("UpdateHouseholdDataById @Id", new SqlParameter("Id", Id)).FirstOrDefaultAsync();
-        }
+            return await Database.ExecuteSqlCommandAsync("UpdateHouseholdDataById @Id, @HouseholdName, @Greeting",
+                new SqlParameter("Id", Id),
+                new SqlParameter("HouseholdName", HouseholdName),
+                new SqlParameter("Greeting", Greeting)
+                );
+        }        
 
         /// <summary>
         /// ApiDbContext - Household Delete
@@ -352,6 +435,44 @@ namespace RichlynnFinancialPortalWebAPI.Models
 
         #region
         //Transaction begins=======================================================================
+        /// <summary>
+        /// Create a Transaction
+        /// </summary>
+        /// <param name="AccountId"></param>
+        /// <param name="BudgetItemId"></param>
+        /// <param name="TransactionType"></param>
+        /// <param name="OwnerId"></param>
+        /// <param name="Created"></param>
+        /// <param name="Amount"></param>
+        /// <param name="Memo"></param>
+        /// <param name="IsDeleted"></param>
+        /// <returns></returns>
+       public async Task<int> CreateTransaction
+            (
+               int AccountId,
+               int BudgetItemId,
+               int TransactionType,
+               string OwnerId,
+               DateTime Created,
+               decimal Amount,
+               string Memo,
+               bool IsDeleted           
+            )
+        {
+            return await Database.ExecuteSqlCommandAsync("CreateTransaction @AccountId, @BudgetItemId, @TransactionType, @OwnerId, @Created, @Amount, @Memo, @IsDeleted",
+                new SqlParameter("AccountId", AccountId),
+                new SqlParameter("BudgetItemId", BudgetItemId),
+                new SqlParameter("TransactionType", TransactionType),
+                new SqlParameter("OwnerId", OwnerId),
+                new SqlParameter("Created", Created),
+                new SqlParameter("Amount", Amount),
+                new SqlParameter("Memo", Memo),
+                new SqlParameter("IsDeleted", IsDeleted)
+                );
+        }
+
+      
+
 
         /// <summary>
         /// ApiDbContext - Transactions
@@ -377,10 +498,24 @@ namespace RichlynnFinancialPortalWebAPI.Models
         /// ApiDbContext - Transaction Updates
         /// </summary>
         /// <param name="Id"></param>
+        /// <param name="TransactionType"></param>
+        /// <param name="Amount"></param>
+        /// <param name="Memo"></param>
         /// <returns></returns>
-        public async Task<Transaction> UpdateTransactionDataById(int Id)
+        public async Task<int> UpdateTransactionDataById
+            (
+                int Id,
+                int TransactionType,
+                decimal Amount,
+                string Memo
+            )
         {
-            return await Database.SqlQuery<Transaction>("UpdateTransactionDataById @Id", new SqlParameter("Id", Id)).FirstOrDefaultAsync();
+            return await Database.ExecuteSqlCommandAsync("UpdateTransactionDataById @Id, @TransactionType, @Amount, @Memo",
+                new SqlParameter("Id", Id),
+                new SqlParameter("TransactionType", TransactionType),
+                new SqlParameter("Amount", Amount),
+                new SqlParameter("Memo", Memo)
+                );
         }
 
 

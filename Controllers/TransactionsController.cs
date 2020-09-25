@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace RichlynnFinancialPortalWebAPI.Controllers
-{
+{   
+    
+    
     /// <summary>
     /// Transaction Controller
     /// </summary>
@@ -21,6 +23,47 @@ namespace RichlynnFinancialPortalWebAPI.Controllers
         /// </summary>
         private ApiDbContext db = new ApiDbContext();
 
+        /// <summary>
+        /// Create a Transaction
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <param name="budgetItemId"></param>
+        /// <param name="transactionType"></param>
+        /// <param name="ownerId"></param>
+        /// <param name="created"></param>
+        /// <param name="amount"></param>
+        /// <param name="memo"></param>
+        /// <param name="isDeleted"></param>
+        /// <returns></returns>
+
+        [Route("CreateTransaction"), HttpPost]
+        public async Task<int> CreateTransaction
+            (
+                int accountId,
+                int budgetItemId,
+                int transactionType,
+                string ownerId,
+                DateTime created,
+                decimal amount,
+                string memo,
+                bool isDeleted
+            )
+        {
+            return await db.CreateTransaction
+                (
+                    accountId,
+                    budgetItemId,
+                    transactionType,
+                    ownerId,
+                    created = DateTime.Now,
+                    amount,
+                    memo,
+                    isDeleted
+
+                );
+        }
+
+
 
 
         /// <summary>
@@ -28,11 +71,24 @@ namespace RichlynnFinancialPortalWebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [Route("GetAllTransactions")]
-        public async Task<IHttpActionResult> GetAllTransactions()
+        public async Task<List<Transaction>> GetAllTransactions()
+        {
+            return await db.GetAllTransactions();
+            
+        }
+
+        /// <summary>
+        /// Get all transactions in json
+        /// </summary>
+        /// <returns></returns>
+        [Route("GetAllTransactions/json")]
+        public async Task<IHttpActionResult> GetAllTransactionsjson()
         {
             var json = JsonConvert.SerializeObject(await db.GetAllTransactions());
             return Ok(json);
-        }
+
+        }      
+
 
 
 
@@ -52,14 +108,30 @@ namespace RichlynnFinancialPortalWebAPI.Controllers
         /// <summary>
         /// Update a transaction
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="id"></param>
+        /// <param name="transactionType"></param>
+        /// <param name="amount"></param>
+        /// <param name="memo"></param>
         /// <returns></returns>
 
-        [Route("UpdateTransactionDataById")]
-        public async Task<IHttpActionResult> UpdateTransactionDataById(int Id)
+        [Route("UpdateTransactionDataById"), HttpPut]
+        public async Task<int> UpdateTransactionDataById
+            (
+                int id,
+                int transactionType,
+                decimal amount,
+                string memo
+
+             )
         {
-            var json = JsonConvert.SerializeObject(await db.UpdateTransactionDataById(Id));
-            return Ok(json);
+            return await db.UpdateTransactionDataById
+                (
+                    id,
+                    transactionType,
+                    amount,
+                    memo
+                    
+                 );
         }
 
 

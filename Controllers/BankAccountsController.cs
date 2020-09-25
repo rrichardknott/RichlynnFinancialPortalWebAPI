@@ -46,14 +46,14 @@ namespace RichlynnFinancialPortalWebAPI.Controllers
                     householdId,
                     ownerId,
                     accountName,
-                    created,
+                    created = DateTime.Now,
                     startingBalance,
                     currentBalance,
                     warningBalance,
                     isDeleted,
                     accountType
 
-                );
+                ); 
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace RichlynnFinancialPortalWebAPI.Controllers
 
 
         /// <summary>
-        /// Get account/transaction information
+        /// Transaction information
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
@@ -123,7 +123,7 @@ namespace RichlynnFinancialPortalWebAPI.Controllers
         /// Update account information
         /// </summary>        
         /// 
-        [Route("UpdateBankAccountDataById"), HttpPost]
+        [Route("UpdateBankAccountDataById"), HttpPut]
         public async Task<int> UpdateBankAccountDataById 
             (
                 int id,               
@@ -143,9 +143,6 @@ namespace RichlynnFinancialPortalWebAPI.Controllers
 
                 );
         }
-
-
-
 
         /// <summary>
         /// Update account information

@@ -75,7 +75,14 @@ namespace RichlynnFinancialPortalWebAPI.Models
         /// High level coding going on here
         /// </summary>
         /// <param name="isTrue"></param>       
-        public Budget(bool isTrue) { }        
+        public Budget(bool isTrue) { }
+        public Budget()
+        {
+            
+            Created = DateTime.Now;            
+            CurrentAmount = 0;
+
+        }
 
     }
 }

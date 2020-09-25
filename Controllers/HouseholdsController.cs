@@ -46,7 +46,7 @@ namespace RichlynnFinancialPortalWebAPI.Controllers
 
 
         /// <summary>
-        /// Household list in Javascript Object Notation (json)
+        /// Household list in json
         /// </summary>
         /// <returns></returns>
 
@@ -75,7 +75,7 @@ namespace RichlynnFinancialPortalWebAPI.Controllers
 
 
         /// <summary>
-        /// Get a lot of household data by Id
+        /// More household data by Id
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
@@ -87,7 +87,7 @@ namespace RichlynnFinancialPortalWebAPI.Controllers
 
 
         /// <summary>
-        /// Even more ways to get household data
+        /// More ways to get household data
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
@@ -103,13 +103,24 @@ namespace RichlynnFinancialPortalWebAPI.Controllers
         /// <summary>
         /// Update household data
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="id"></param>
+        /// <param name="greeting"></param>
+        /// <param name="householdName"></param>
         /// <returns></returns>
-        [Route("UpdateHouseholdDataById")]
-        public async Task<IHttpActionResult> UpdateHouseholdDataById(int Id)
+        [Route("UpdateHouseholdDataById"), HttpPut]
+        public async Task<int> UpdateHouseholdDataById
+            (
+                int id,
+                string householdName,
+                string greeting
+            )
         {
-            var json = JsonConvert.SerializeObject(await db.UpdateHouseholdDataById(Id));
-            return Ok(json);
+            return await db.UpdateHouseholdDataById
+                (
+                    id,
+                    householdName,
+                    greeting
+                );
         }
 
         //[Route("DeleteHouseholdDataById")]
